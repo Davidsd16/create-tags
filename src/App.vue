@@ -1,5 +1,9 @@
-<script setup></script>
+<script setup>
+  import InputTag from "./components/InputTag.vue";
+</script>
 
-<template>Hola Mundo!</template>
+<template>
+  <inputTag />
+</template>
 
 <style scoped></style>
