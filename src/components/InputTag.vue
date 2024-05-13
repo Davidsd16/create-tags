@@ -9,15 +9,34 @@ export default {
         };
     },
 
-    // Métodos del componente
     methods: {
-        // Método para manejar el evento keydown en el input
-        handleKeyDown(e) {
-            if (e.key === 'Enter') { // Verifica si se presionó la tecla Enter
-                console.log('Enter'); // Muestra un mensaje en la consola
-            }
+    // Método para manejar el evento keydown en el input
+    handleKeyDown(e) {
+        // Verifica si se presionó la tecla Enter y el valor actual no está vacío
+        if (e.key === 'Enter' && this.currentValue !== "") { 
+            // Agrega el valor actual (etiqueta) al array 'tags'
+            this.tags.push(this.currentValue);
         }
+    },
+
+    // Método para manejar el envío del formulario (submit)
+    handleSubmit() {
+        // Verifica si el valor actual no está vacío
+        if (this.currentValue !== "") { 
+            // Agrega el valor actual (etiqueta) al array 'tags'
+            this.tags.push(this.currentValue);
+            // Reinicia el valor actual a una cadena vacía después de agregar la etiqueta
+            this.currentValue = "";
+        }
+    },
+
+    // Método para eliminar una etiqueta específica
+    deleteTag(tag) {
+        // Filtra el array 'tags' para eliminar la etiqueta seleccionada
+        this.tags = this.tags.filter(item => item !== tag);
     }
+}
+
 }
 </script>
 
@@ -27,11 +46,14 @@ export default {
         <div class="tags">
             <!-- Iteración sobre las etiquetas para mostrarlas -->
             <div class="tag" v-for="(tag, index) in tags" :key="index">
-                {{ tag }}
+                {{ tag }}   <button @click="deleteTag(tag)">
+                                Delete Tag
+                            </button>
             </div>
         </div>
-        <!-- Input controlado por v-model para actualizar 'currentValue' -->
-        <input type="text" v-model="currentValue" @keydown="handleKeyDown" />
+        <form @submit.prevent="handleSubmit">
+            <input type="text" v-model="currentValue" />
+        </form>
     </div>
 </template>
 
