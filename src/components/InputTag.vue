@@ -10,13 +10,13 @@ export default {
     },
 
     methods: {
-    // Método para manejar el evento keydown en el input
-    handleKeyDown(e) {
-        // Verifica si se presionó la tecla Enter y el valor actual no está vacío
-        if (e.key === 'Enter' && this.currentValue !== "") { 
-            // Agrega el valor actual (etiqueta) al array 'tags'
-            this.tags.push(this.currentValue);
-        }
+        // Método para manejar el evento keydown en el input
+        handleKeyDown(e) {
+        // Verifica si se presionó la tecla Backspace y el valor actual está vacío
+        if (e.key === 'Backspace' && this.currentValue === "") { 
+            // Elimina la última etiqueta del array 'tags' si el input está vacío
+            this.tags.pop();
+        }        
     },
 
     // Método para manejar el envío del formulario (submit)
@@ -57,7 +57,7 @@ export default {
             </div>
         </div>
         <form @submit.prevent="handleSubmit">
-            <input type="text" v-model="currentValue" />
+            <input type="text" v-model="currentValue" @keydown="handleKeyDown" />
         </form>
     </div>
 </template>
