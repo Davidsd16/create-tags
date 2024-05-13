@@ -21,12 +21,17 @@ export default {
 
     // Método para manejar el envío del formulario (submit)
     handleSubmit() {
-        // Verifica si el valor actual no está vacío
-        if (this.currentValue !== "") { 
-            // Agrega el valor actual (etiqueta) al array 'tags'
-            this.tags.push(this.currentValue);
-            // Reinicia el valor actual a una cadena vacía después de agregar la etiqueta
-            this.currentValue = "";
+        if (this.currentValue !== "") {
+            const exist = this.tags.some(item => item === this.currentValue);
+            if (!exist) {
+                // La etiqueta no existe, agregarla al array 'tags'
+                this.tags.push(this.currentValue);
+                // Reiniciar el valor actual a una cadena vacía después de agregar la etiqueta
+                this.currentValue = "";
+            } else {
+                // La etiqueta ya existe, mostrar un mensaje de alerta
+                alert('La etiqueta ya existe en la lista.');
+            }
         }
     },
 
